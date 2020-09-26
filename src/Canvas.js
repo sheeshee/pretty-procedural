@@ -10,11 +10,12 @@ export default class Canvas extends Component {
 
     setup = (p5, canvasParentRef) => {
         p5.createCanvas(this.props.width, this.props.height).parent(canvasParentRef)
-        p5.background(0, 0, 0)
+        p5.background(0);
     };
 
     draw = (p5) => {
-        this.art.draw(p5)
+        p5.background(0, 0, 0)
+        this.art.draw(p5);
     }
 
     mouseClicked = (p5) => {

@@ -8,37 +8,36 @@ class Circles {
         }
         this.radius = 1;
         this.thickness = 5;
-        this.edge = 0.5*Math.sqrt(width*width + height * height) + this.thickness
+        this.edge = this.getEdge(this.center);
+        this.circles = [];
     }
 
     draw = p5 => {
-        console.log('draw')
         const step = 3;
-        const diameter = this.radius * 2
-        this.ring(p5, this.center.x, this.center.y, diameter, this.thickness)
-        if (diameter < this.edge*2){
-            this.radius += step;
-        } else {
-            this.radius = 1
-        }
+        let to_delete = [];
+        this.circles.forEach((item, index) => {
+            let diameter = item.radius * 2
+            this.ring(p5, item.center.x, item.center.y, diameter)
+            if (diameter < item.edge*2){
+                item.radius += step;
+            } else {
+                to_delete.push(index);
+            }
+        });
+        to_delete.forEach((item, index) => {
+            this.circles.splice(item, 1);
+        });
     }
 
     mouseClicked = p5 => {
-        this.updateCenter(p5.mouseX, p5.mouseY)
-        this.updateEdge()
-        this.radius = 0
+        this.circles.push(this.newCircle(p5.mouseX, p5.mouseY))
     }
 
-    updateCenter = (x, y) => {
-        this.center.x = x
-        this.center.y = y
-    }
-
-    updateEdge = () => {
-        const left = Math.pow(this.center.x, 2);
-        const right = Math.pow(this.width - this.center.x, 2);
-        const top = Math.pow(this.center.y, 2);
-        const bottom = Math.pow(this.height - this.center.y, 2);
+    getEdge = (center) => {
+        const left = Math.pow(center.x, 2);
+        const right = Math.pow(this.width - center.x, 2);
+        const top = Math.pow(center.y, 2);
+        const bottom = Math.pow(this.height - center.y, 2);
         const distances =  [
                 left + top,
                 left + bottom,
@@ -46,14 +45,25 @@ class Circles {
                 right + top,
             ].map(x => Math.sqrt(x))
 
-        this.edge = Math.max(...distances)
+        return Math.max(...distances)
     }
 
     ring = (p5, x, y, radius, width) => {
-        p5.fill(255)
+        p5.noFill()
+        p5.strokeWeight(this.thickness)
+        p5.stroke(255)
         p5.circle(x, y, radius)
-        p5.fill(0)
-        p5.circle(x, y, radius - width)
+    }
+
+    newCircle = (x, y) => {
+        return {
+            radius: 0,
+            edge: this.getEdge({x:x,y:y}),
+            center: {
+                x: x,
+                y: y
+            }
+        }
     }
 }
 
