@@ -1,0 +1,78 @@
+.Menu {
+    color: white;
+    position: fixed;
+}
+
+.hamburger {
+    border: 1px solid white;
+    background-color: black;
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+
+}
+
+.patty {
+    width: 30px;
+    height: 2px;
+    border-radius: 5px;
+    background-color: white;
+    margin: auto;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 300px;
+    max-width: 100vw;
+    position: absolute;
+    top: 0px;
+    border: 2px solid white;
+    background-color: rgb(15, 15, 15);
+}
+
+.menuExit {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.sidebar.hidden {
+    left: -310px
+}
+
+.hamburger.hidden {
+    display: none;
+}
+
+
+.shown {
+    display: block;
+}
+
+
+.appList {
+    position: absolute;
+    top: 80px;
+}
+
+.appList button {
+    color: white;
+    font-size: xx-large;
+    background-color: transparent;
+    border: 0;
+}
+
+.appList button:hover {
+    background-color: rgb(50, 50, 50);
+    border-radius: 3px;;
+}
+
+.appList li {
+    margin-bottom: 10px;
+}
