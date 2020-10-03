@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Sketch from 'react-p5';
-import Circles from './Circles'
 
 export default class Canvas extends Component {
     constructor (props) {
         super(props)
-        this.art = new Circles(this.props.width, this.props.height)
+        this.art = new this.props.engine(this.props.width, this.props.height)
     }
 
     setup = (p5, canvasParentRef) => {

@@ -3,18 +3,35 @@ import React from 'react';
 import './App.css';
 import Canvas from'./Canvas';
 import Menu from './Menu';
+import Circles from './Circles'
 
-function App() {
-    
-  return (
-    <div>
-      <Menu />
-      <Canvas
-        width={window.innerWidth * 0.999}
-        height={window.innerHeight * 0.997}
-      />
-    </div>
-  );
+
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      engine: Circles
+    }
+    this.setEngine = this.setEngine.bind(this);
+  };
+
+  setEngine(engine){
+    this.setState(state => ({
+      engine: engine
+    }));
+  };
+
+  render(){
+    return (
+      <div className="container"> 
+        <Menu setEngine={this.setEngine} engine={this.state.engine}/>
+        <Canvas
+          width={window.innerWidth * 0.999}
+          height={window.innerHeight * 0.997275}
+          engine={this.state.engine}
+          />
+      </div>
+    );}
 }
 
 export default App;

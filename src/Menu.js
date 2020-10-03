@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Menu.css'
+import Circles from './Circles'
+
 
 export default class Menu extends Component {
     constructor(props) {
@@ -26,6 +28,8 @@ export default class Menu extends Component {
                 <SideBar
                     handleClick={this.toggleMenu}
                     isActive={this.state.active}
+                    setEngine={this.props.setEngine}
+                    engine={this.props.engine}
                 />
             </div>
         )
@@ -36,10 +40,15 @@ class SideBar extends Component {
     constructor(props){
         super(props)
         this.handleClick = this.handleClick.bind(this)
+        this.setEngine = this.setEngine.bind(this)
     }
 
     handleClick(){
         this.props.handleClick()
+    }
+
+    setEngine(engine){
+        this.props.setEngine(engine)
     }
 
     render(){
@@ -54,11 +63,28 @@ class SideBar extends Component {
                 <button className="menuExit" onClick={this.handleClick}>X</button>
                 <div className="appList">
                     <ul>
-                        <li><button>Circles</button></li>
-                        <li><button>Spiral</button></li>
+                        <li><MenuItem currentEngine={this.props.engine} engine={Circles} itemName="Circles" onClick={this.setEngine} /></li>
                     </ul>
                 </div>
             </div>
+        )
+    }
+}
+
+
+class MenuItem extends Component {
+    render(){
+        var selectClass = "";
+        if(this.props.currentEngine === this.props.engine){
+            selectClass = "selected"
+        }
+        return(
+        <button
+            className={selectClass}
+            onClick = {() => this.props.onClick(this.props.engine)}
+            >
+                {this.props.itemName}
+        </button>
         )
     }
 }
