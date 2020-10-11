@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Menu.css'
-import Circles from './Circles'
+import Circles from './engines/Circles'
+import Spiral from './engines/Spiral'
 
 
 export default class Menu extends Component {
@@ -64,6 +65,7 @@ class SideBar extends Component {
                 <div className="appList">
                     <ul>
                         <li><MenuItem currentEngine={this.props.engine} engine={Circles} itemName="Circles" onClick={this.setEngine} /></li>
+                        <li><MenuItem currentEngine={this.props.engine} engine={Spiral} itemName="Spiral" onClick={this.setEngine} /></li>
                     </ul>
                 </div>
             </div>

@@ -3,14 +3,15 @@ import React from 'react';
 import './App.css';
 import Canvas from'./Canvas';
 import Menu from './Menu';
-import Circles from './Circles'
+// import Circles from './engines/Circles'
+import Spiral from './engines/Spiral'
 
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      engine: Circles
+      engine: Spiral
     }
     this.setEngine = this.setEngine.bind(this);
   };
