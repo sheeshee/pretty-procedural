@@ -6,65 +6,39 @@ class Spiral {
             x: this.width/2,
             y: this.height/2
         }
-        this.radius = 1;
-        this.thickness = 5;
-        this.edge = this.getEdge(this.center);
-        this.circles = [];
+        this.datum = 0;
+        this.offset = 0
+        this.direction = 1
     }
 
     draw = p5 => {
-        const step = 3;
-        let to_delete = [];
-        this.circles.forEach((item, index) => {
-            let diameter = item.radius * 2
-            this.ring(p5, item.center.x, item.center.y, diameter)
-            if (diameter < item.edge*2){
-                item.radius += step;
-            } else {
-                to_delete.push(index);
-            }
-        });
-        to_delete.forEach((item, index) => {
-            this.circles.splice(item, 1);
-        });
+        var step = 0.05;
+        p5.stroke(255);
+        p5.strokeWeight(5);
+        p5.noFill();
+        p5.beginShape()
+        var start = 50 + this.offset
+        var len = 20
+        for(var i = start; i < len+start; i++){
+            let radius = Math.pow(1.03, i);
+            var x = this.center.x + radius * Math.cos(this.datum + i*step*p5.PI);
+            var y = this.center.y + radius * Math.sin(this.datum + i*step*p5.PI);
+            p5.curveVertex(x, y);
+        }
+        p5.endShape();
+        this.offset += this.direction
+        p5.frameRate(40)
+        if(this.offset === 180){
+            this.direction = -1
+        } else if (this.offset === 1){
+            this.direction = 1
+        }
+        console.log(this.offset, this.direction)
     }
 
     mouseClicked = p5 => {
-        this.circles.push(this.newCircle(p5.mouseX, p5.mouseY))
     }
 
-    getEdge = (center) => {
-        const left = Math.pow(center.x, 2);
-        const right = Math.pow(this.width - center.x, 2);
-        const top = Math.pow(center.y, 2);
-        const bottom = Math.pow(this.height - center.y, 2);
-        const distances =  [
-                left + top,
-                left + bottom,
-                right + bottom,
-                right + top,
-            ].map(x => Math.sqrt(x))
-
-        return Math.max(...distances)
-    }
-
-    ring = (p5, x, y, radius, width) => {
-        p5.noFill()
-        p5.strokeWeight(this.thickness)
-        p5.stroke(0, 255, 0)
-        p5.circle(x, y, radius)
-    }
-
-    newCircle = (x, y) => {
-        return {
-            radius: 0,
-            edge: this.getEdge({x:x,y:y}),
-            center: {
-                x: x,
-                y: y
-            }
-        }
-    }
 }
 
 export default Spiral
