@@ -1,5 +1,5 @@
 # pretty-procedural
-A p5 implementation of procedurally generated patterns.
+Messing around with p5
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
